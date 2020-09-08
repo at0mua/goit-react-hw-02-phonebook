@@ -1,0 +1,27 @@
+.contactForm {
+  width: 400px;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 3px;
+}
+
+.contactForm_input {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.contactForm_input__name,
+.contactForm_input__number {
+  margin-top: 10px;
+  width: 250px;
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  outline: none;
+  height: 30px;
+  font-size: 12px;
+}
+
+.contactForm_btn {
+  display: block;
+}

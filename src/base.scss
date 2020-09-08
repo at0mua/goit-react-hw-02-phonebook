@@ -1,0 +1,18 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  background-color: #e7ecf2;
+}
+
+.container {
+  width: 900px;
+  margin: 0 auto;
+}

@@ -1,0 +1,26 @@
+.contactsList_item {
+  display: flex;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.contactsList_item__text {
+  display: flex;
+  margin: 0;
+  margin-right: 30px;
+  width: 210px;
+}
+
+.contactsList_item__text_name {
+  display: block;
+  width: 130px;
+}
+
+.contactsList_item__text_number {
+  display: block;
+  width: 80px;
+}
+
+.contactsList_item__btn {
+  display: block;
+}
