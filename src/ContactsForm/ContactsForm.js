@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class ContactsForm extends Component {
+  static propTypes = {
+    onAddContact: PropTypes.func.isRequired,
+  };
+
   state = {
     name: "",
     number: "",
