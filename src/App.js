@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import createId from "./utils/createId";
+import { v4 as uuidv4 } from "uuid";
 import ContactsForm from "./ContactsForm/ContactsForm";
 import ContactsList from "./ContactsList/ContactsList";
 import Filter from "./Filter/Filter";
@@ -18,10 +18,10 @@ class App extends Component {
 
   addContact = (name, number) => {
     const { contacts } = this.state;
-    if (this.chekContactName(contacts, name)) {
+    if (this.checkContactName(contacts, name)) {
       alert(`${name} is alredy i contacts`);
     } else {
-      const contact = { id: createId(), name: name, number: number };
+      const contact = { id: uuidv4(), name: name, number: number };
       this.setState((prevState) => {
         return {
           contacts: [...prevState.contacts, contact],
@@ -42,8 +42,8 @@ class App extends Component {
     );
   };
 
-  chekContactName = (contacts, name) => {
-    return contacts.find((contact) =>
+  checkContactName = (contacts, name) => {
+    return contacts.some((contact) =>
       contact.name.toLowerCase().includes(name.toLowerCase())
     );
   };
