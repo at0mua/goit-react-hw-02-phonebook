@@ -6,10 +6,8 @@ import s from "./ContactsListItem.module.scss";
 const ContactsListItem = ({ name, number, onRemoveContact }) => {
   return (
     <li className={s.contactsList_item}>
-      <p className={s.contactsList_item__text}>
-        <span className={s.contactsList_item__text_name}>{name}: </span>
-        <span className={s.contactsList_item__text_number}>{number}</span>
-      </p>
+      <p className={s.contactsList_item__name}>{name}:</p>
+      <p className={s.contactsList_item__number}>{number}</p>
       <button
         type="button"
         className={s.contactsList_item__btn}

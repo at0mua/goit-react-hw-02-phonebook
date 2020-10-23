@@ -1,0 +1,31 @@
+.wrapper {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: gray;
+}
+
+.title {
+  width: 900px;
+  margin: 0 auto;
+}
+
+.appear {
+  transform: translateY(-100%);
+}
+
+.appearActive {
+  transform: translateY(0);
+  transition: transform 500ms linear;
+}
+
+.enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+
+.enterActive {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 500ms linear;
+}

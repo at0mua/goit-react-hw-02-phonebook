@@ -1,9 +1,14 @@
 import React, { Component } from "react";
+import { CSSTransition } from "react-transition-group";
 
 import { v4 as uuidv4 } from "uuid";
-import ContactsForm from "./ContactsForm/ContactsForm";
-import ContactsList from "./ContactsList/ContactsList";
-import Filter from "./Filter/Filter";
+import AppBar from "./components/AppBar/AppBar";
+import ContactsForm from "./components/ContactsForm/ContactsForm";
+import ContactsList from "./components/ContactsList/ContactsList";
+import Filter from "./components/Filter/Filter";
+
+import translate from "./animation/translate.module.scss";
+// import logo from "./animation/logo.module.scss";
 
 class App extends Component {
   state = {
@@ -66,22 +71,42 @@ class App extends Component {
   };
 
   render() {
-    const { filter } = this.state;
+    const { contacts, filter } = this.state;
 
     const visibleContacts = this.getVisibleContacts();
+    const isShowFilter = contacts.length > 1;
 
     return (
-      <section className="container">
-        <h1>Phonebook</h1>
-        <ContactsForm onAddContact={this.addContact} />
+      <>
+        {/* <CSSTransition
+          in={true}
+          appear
+          timeout={2500}
+          classNames={logo}
+          unmountOnExit
+        >
+          <AppBar title="Phonebook" />
+        </CSSTransition> */}
+        <AppBar title="Phonebook" />
 
-        <h2>Contacts</h2>
-        <Filter value={filter} onChangeFilter={this.changeFilter} />
-        <ContactsList
-          contacts={visibleContacts}
-          onRemoveContact={this.removeContact}
-        />
-      </section>
+        <section className="container">
+          <ContactsForm onAddContact={this.addContact} />
+
+          <CSSTransition
+            in={isShowFilter}
+            classNames={translate}
+            timeout={250}
+            unmountOnExit
+          >
+            <Filter value={filter} onChangeFilter={this.changeFilter} />
+          </CSSTransition>
+
+          <ContactsList
+            contacts={visibleContacts}
+            onRemoveContact={this.removeContact}
+          />
+        </section>
+      </>
     );
   }
 }
