@@ -1,0 +1,16 @@
+.Notification {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  width: 250px;
+  color: #fff;
+  border-radius: 4px;
+  z-index: 100;
+  background-color: rgb(240, 88, 88);
+}
+
+.text {
+  padding: 20px 20px;
+  text-align: center;
+  font-size: 18px;
+}

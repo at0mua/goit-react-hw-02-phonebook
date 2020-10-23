@@ -1,21 +1,25 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import ContactListItem from "./ContactsListItem";
 import s from "./ContactsList.module.scss";
+import translateL from "../../animation/translateLeft.module.scss";
 
 const ContactsList = ({ contacts, onRemoveContact }) => {
   return (
-    <ul className={s.contactList}>
+    <TransitionGroup component="ul" className={s.contactList}>
       {contacts.map(({ id, name, number }) => (
-        <ContactListItem
-          key={id}
-          name={name}
-          number={number}
-          onRemoveContact={() => onRemoveContact(id)}
-        />
+        <CSSTransition key={id} timeout={250} classNames={translateL}>
+          <ContactListItem
+            key={id}
+            name={name}
+            number={number}
+            onRemoveContact={() => onRemoveContact(id)}
+          />
+        </CSSTransition>
       ))}
-    </ul>
+    </TransitionGroup>
   );
 };
 
