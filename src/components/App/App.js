@@ -2,18 +2,21 @@ import React, { Component } from "react";
 import { CSSTransition } from "react-transition-group";
 
 import { v4 as uuidv4 } from "uuid";
-import AppBar from "./components/AppBar/AppBar";
-import ContactsForm from "./components/ContactsForm/ContactsForm";
-import ContactsList from "./components/ContactsList/ContactsList";
-import Filter from "./components/Filter/Filter";
+import AppBar from "../AppBar/AppBar";
+import ContactsForm from "../ContactsForm/ContactsForm";
+import ContactsList from "../ContactsList/ContactsList";
+import Filter from "../Filter/Filter";
+import Message from "../Message/Message";
 
-import translate from "./animation/translate.module.scss";
-// import logo from "./animation/logo.module.scss";
+import s from "./App.module.scss";
+import scale from "../../animation/scale.module.scss";
+import translateR from "../../animation/translateRight.module.scss";
 
 class App extends Component {
   state = {
     contacts: [],
     filter: "",
+    message: false,
   };
 
   componentDidMount() {
@@ -33,12 +36,16 @@ class App extends Component {
   addContact = (name, number) => {
     const { contacts } = this.state;
     if (this.checkContactName(contacts, name)) {
-      alert(`${name} is alredy i contacts`);
+      this.setState({ message: true });
+      setTimeout(() => {
+        this.resetMessageStatus();
+      }, 1500);
     } else {
       const contact = { id: uuidv4(), name: name, number: number };
       this.setState((prevState) => {
         return {
           contacts: [...prevState.contacts, contact],
+          message: false,
         };
       });
     }
@@ -70,31 +77,38 @@ class App extends Component {
     });
   };
 
+  resetMessageStatus = () => {
+    this.setState({
+      message: false,
+    });
+  };
+
   render() {
-    const { contacts, filter } = this.state;
+    const { contacts, filter, message } = this.state;
 
     const visibleContacts = this.getVisibleContacts();
     const isShowFilter = contacts.length > 1;
+    const isShowContacts = visibleContacts.length > 0;
 
     return (
       <>
-        {/* <CSSTransition
-          in={true}
-          appear
-          timeout={2500}
-          classNames={logo}
+        <AppBar title="Phonebook" />
+
+        <CSSTransition
+          in={message}
+          classNames={translateR}
+          timeout={250}
           unmountOnExit
         >
-          <AppBar title="Phonebook" />
-        </CSSTransition> */}
-        <AppBar title="Phonebook" />
+          <Message />
+        </CSSTransition>
 
         <section className="container">
           <ContactsForm onAddContact={this.addContact} />
 
           <CSSTransition
             in={isShowFilter}
-            classNames={translate}
+            classNames={scale}
             timeout={250}
             unmountOnExit
           >
@@ -105,6 +119,9 @@ class App extends Component {
             contacts={visibleContacts}
             onRemoveContact={this.removeContact}
           />
+          {!isShowContacts && (
+            <p className={s.message}>You have no contacts. Try to add new.</p>
+          )}
         </section>
       </>
     );

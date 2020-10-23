@@ -4,13 +4,13 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import ContactListItem from "./ContactsListItem";
 import s from "./ContactsList.module.scss";
-import translate from "../../animation/translate.module.scss";
+import translateL from "../../animation/translateLeft.module.scss";
 
 const ContactsList = ({ contacts, onRemoveContact }) => {
   return (
     <TransitionGroup component="ul" className={s.contactList}>
       {contacts.map(({ id, name, number }) => (
-        <CSSTransition key={id} timeout={250} classNames={translate}>
+        <CSSTransition key={id} timeout={250} classNames={translateL}>
           <ContactListItem
             key={id}
             name={name}
