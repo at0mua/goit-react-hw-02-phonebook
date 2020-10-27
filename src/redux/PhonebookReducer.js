@@ -1,32 +1,48 @@
 import { combineReducers } from "redux";
+import { createReducer } from "@reduxjs/toolkit";
+import phonebookActions from "./PnhonebookActions";
 
-const contactsReducer = (state = [], { type, payload }) => {
-  switch (type) {
-    case "contacts/addContact": {
-      return [...state, payload];
-    }
-    case "contacts/deleteContact": {
-      return state.filter(({ id }) => id !== payload.contactId);
-    }
-    case "contacts/fromLocalSorage": {
-      return [...state, ...payload.contacts];
-    }
-    default:
-      return state;
-  }
-};
+const contacts = createReducer([], {
+  [phonebookActions.addContact]: (state, { payload }) => [...state, payload],
+  [phonebookActions.deleteContact]: (state, { payload }) =>
+    state.filter(({ id }) => id !== payload),
+  [phonebookActions.fromLocalSorage]: (state, { payload }) => [
+    ...state,
+    ...payload,
+  ],
+});
 
-const filterReducer = (state = "", { type, payload }) => {
-  switch (type) {
-    case "contacs/change-filter":
-      return payload.value;
+const filter = createReducer("", {
+  [phonebookActions.changeFilter]: (_, { payload }) => payload,
+});
 
-    default:
-      return state;
-  }
-};
+// const contactsReducer = (state = [], { type, payload }) => {
+//   switch (type) {
+//     case phonebookActions.addContact.type: {
+//       return [...state, payload];
+//     }
+//     case phonebookActions.deleteContact.type: {
+//       return state.filter(({ id }) => id !== payload);
+//     }
+//     case phonebookActions.fromLocalSorage.type: {
+//       return [...state, ...payload];
+//     }
+//     default:
+//       return state;
+//   }
+// };
+
+// const filterReducer = (state = "", { type, payload }) => {
+//   switch (type) {
+//     case phonebookActions.changeFilter.type:
+//       return payload;
+
+//     default:
+//       return state;
+//   }
+// };
 
 export default combineReducers({
-  filter: filterReducer,
-  contacts: contactsReducer,
+  contacts,
+  filter,
 });
