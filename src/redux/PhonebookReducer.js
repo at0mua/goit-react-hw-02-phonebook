@@ -6,7 +6,7 @@ const contactsReducer = (state = [], { type, payload }) => {
       return [...state, payload];
     }
     case "contacts/deleteContact": {
-      return state.filter(({ id }) => id !== payload.id);
+      return state.filter(({ id }) => id !== payload.contactId);
     }
     case "contacts/fromLocalSorage": {
       return [...state, ...payload.contacts];

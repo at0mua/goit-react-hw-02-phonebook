@@ -7,9 +7,12 @@ const addContact = (name, number) => {
   };
 };
 
-const deleteContact = () => {
+const deleteContact = (contactId) => {
   return {
     type: "contacts/deleteContact",
+    payload: {
+      contactId,
+    },
   };
 };
 

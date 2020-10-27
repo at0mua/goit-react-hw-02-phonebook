@@ -9,19 +9,11 @@ import ContactListItem from "./ContactsListItem";
 import s from "./ContactsList.module.scss";
 import translateL from "../../animation/translateLeft.module.scss";
 
-const ContactsList = ({ contacts, filter, onRemoveContact }) => {
-  function getVisibleContacts() {
-    return contacts.filter((contact) =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  }
-  const visibleContacts = getVisibleContacts();
-  const isShowContacts = visibleContacts.length > 0;
-
+const ContactsList = ({ contacts, onRemoveContact }) => {
   return (
     <>
       <TransitionGroup component="ul" className={s.contactList}>
-        {visibleContacts.map(({ id, name, number }) => (
+        {contacts.map(({ id, name, number }) => (
           <CSSTransition key={id} timeout={250} classNames={translateL}>
             <ContactListItem
               key={id}
@@ -32,7 +24,7 @@ const ContactsList = ({ contacts, filter, onRemoveContact }) => {
           </CSSTransition>
         ))}
       </TransitionGroup>
-      {!isShowContacts && (
+      {!(contacts.length > 0) && (
         <p className={s.message}>You have no contacts. Try to add new.</p>
       )}
     </>
@@ -51,9 +43,14 @@ ContactsList.propTpes = {
 };
 
 const mapStateToProps = (state) => {
+  const { contacts, filter } = state.phonebook;
+
+  const visibleContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
   return {
-    contacts: state.phonebook.contacts,
-    filter: state.phonebook.filter,
+    contacts: visibleContacts,
   };
 };
 
