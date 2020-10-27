@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
+
+import PhonebookActions from "../../redux/PnhonebookActions";
 
 import s from "./Filter.module.scss";
 
@@ -20,9 +23,23 @@ const Filter = ({ value, onChangeFilter }) => {
   );
 };
 
+Filter.defaultProps = {
+  filter: "",
+};
+
 Filter.propTypes = {
-  value: PropTypes.string.isRequired,
+  filter: PropTypes.string.isRequired,
   onChangeFilter: PropTypes.func.isRequired,
 };
 
-export default Filter;
+const mapStateToProps = (state) => {
+  return {
+    value: state.phonebook.filter,
+  };
+};
+
+const mapDispatchToProps = {
+  onChangeFilter: PhonebookActions.changeFilter,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);
