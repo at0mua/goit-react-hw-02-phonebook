@@ -3,24 +3,18 @@ import PropTypes from "prop-types";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { connect } from "react-redux";
 
-import PhonebookActions from "../../redux/PnhonebookActions";
 import ContactListItem from "./ContactsListItem";
 
 import s from "./ContactsList.module.scss";
 import translateL from "../../animation/translateLeft.module.scss";
 
-const ContactsList = ({ contacts, onRemoveContact }) => {
+const ContactsList = ({ contacts }) => {
   return (
     <>
       <TransitionGroup component="ul" className={s.contactList}>
-        {contacts.map(({ id, name, number }) => (
+        {contacts.map(({ id }) => (
           <CSSTransition key={id} timeout={250} classNames={translateL}>
-            <ContactListItem
-              key={id}
-              name={name}
-              number={number}
-              onRemoveContact={() => onRemoveContact(id)}
-            />
+            <ContactListItem key={id} id={id} />
           </CSSTransition>
         ))}
       </TransitionGroup>
@@ -35,11 +29,8 @@ ContactsList.propTpes = {
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
     })
   ),
-  onRemoveContact: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -54,8 +45,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = {
-  onRemoveContact: PhonebookActions.deleteContact,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsList);
+export default connect(mapStateToProps)(ContactsList);
