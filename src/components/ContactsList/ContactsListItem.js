@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import PhonebookActions from "../../redux/PnhonebookActions";
+import PhonebookOperation from '../../redux/PhonebookOperation';
 
-import s from "./ContactsListItem.module.scss";
+import s from './ContactsListItem.module.scss';
 
 const ContactsListItem = ({ name, number, onRemoveContact }) => {
   return (
@@ -32,14 +32,15 @@ ContactsListItem.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const item = state.phonebook.contacts.find((item) => item.id === ownProps.id);
+  const item = state.phonebook.contacts.find(item => item.id === ownProps.id);
   return {
     ...item,
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onRemoveContact: () => dispatch(PhonebookActions.deleteContact(ownProps.id)),
+  onRemoveContact: () =>
+    dispatch(PhonebookOperation.deleteContact(ownProps.id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactsListItem);

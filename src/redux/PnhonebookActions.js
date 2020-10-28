@@ -1,50 +1,28 @@
-import { createAction } from "@reduxjs/toolkit";
+import { createAction } from '@reduxjs/toolkit';
 
-import { v4 as uuidv4 } from "uuid";
+const addContactRequest = createAction('contacts/addContactRequest');
+const addContactSuccess = createAction('contacts/addContactSuccess');
+const addContactError = createAction('contacts/addContactError');
 
-const addContact = createAction("contacts/addContact", (name, number) => ({
-  payload: { id: uuidv4(), name, number },
-}));
+const getContactsRequest = createAction('contacts/getContactsRequest');
+const getContactsSuccess = createAction('contacts/getContactsSuccess');
+const getContactsError = createAction('contacts/getContactsError');
 
-const deleteContact = createAction("contacts/deleteContact");
-const fromLocalSorage = createAction("contacts/fromLocalSorage");
-const changeFilter = createAction("contacs/change-filter");
+const deleteContactRequest = createAction('contacts/deleteContactRequest');
+const deleteContactSuccess = createAction('contacts/deleteContactSuccess');
+const deleteContactError = createAction('contacts/deleteContactError');
 
-// const addContact = (name, number) => {
-//   return {
-//     type: "contacts/addContact",
-//     payload: { id: uuidv4(), name, number },
-//   };
-// };
-
-// const deleteContact = (contactId) => {
-//   return {
-//     type: "contacts/deleteContact",
-//     payload: {
-//       contactId,
-//     },
-//   };
-// };
-
-// const fromLocalSorage = (contacts) => {
-//   return {
-//     type: "contacts/fromLocalSorage",
-//     payload: { contacts },
-//   };
-// };
-
-// const changeFilter = (value) => {
-//   return {
-//     type: "contacs/change-filter",
-//     payload: {
-//       value,
-//     },
-//   };
-// };
+const changeFilter = createAction('contacs/change-filter');
 
 export default {
-  addContact,
-  deleteContact,
-  fromLocalSorage,
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
+  getContactsRequest,
+  getContactsSuccess,
+  getContactsError,
+  deleteContactRequest,
+  deleteContactSuccess,
+  deleteContactError,
   changeFilter,
 };

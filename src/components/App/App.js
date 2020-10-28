@@ -1,28 +1,18 @@
-import React, { Component } from "react";
-import { CSSTransition } from "react-transition-group";
-import { connect } from "react-redux";
+import React, { Component } from 'react';
+import { CSSTransition } from 'react-transition-group';
+import { connect } from 'react-redux';
 
-import AppBar from "../AppBar/AppBar";
-import ContactsForm from "../ContactsForm/ContactsForm";
-import ContactsList from "../ContactsList/ContactsList";
-import Filter from "../Filter/Filter";
-import PhonebookActions from "../../redux/PnhonebookActions";
+import AppBar from '../AppBar/AppBar';
+import ContactsForm from '../ContactsForm/ContactsForm';
+import ContactsList from '../ContactsList/ContactsList';
+import Filter from '../Filter/Filter';
+import PhonebookOperation from '../../redux/PhonebookOperation';
 
-import scale from "../../animation/scale.module.scss";
+import scale from '../../animation/scale.module.scss';
 
 class App extends Component {
   componentDidMount() {
-    const persistedContacts = localStorage.getItem("contacts");
-
-    if (persistedContacts) {
-      this.props.addFromLocal(JSON.parse(persistedContacts));
-    }
-  }
-
-  componentDidUpdate(prevState) {
-    if (prevState.contacts !== this.props.contacts) {
-      localStorage.setItem("contacts", JSON.stringify(this.props.contacts));
-    }
+    this.props.onGetContacts();
   }
 
   render() {
@@ -46,6 +36,8 @@ class App extends Component {
             <Filter />
           </CSSTransition>
 
+          {this.props.loading && <h3>Please wait. Loading...</h3>}
+
           <ContactsList />
         </section>
       </>
@@ -53,17 +45,16 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
+  const { contacts, loading } = state.phonebook;
   return {
-    contacts: state.phonebook.contacts,
+    contacts,
+    loading,
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addFromLocal: (contacts) =>
-      dispatch(PhonebookActions.fromLocalSorage(contacts)),
-  };
+const mapDispatchToProps = {
+  onGetContacts: PhonebookOperation.getContacts,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
