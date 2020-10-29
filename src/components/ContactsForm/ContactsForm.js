@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
 import PhonebookOperation from '../../redux/PhonebookOperation';
+import PhonebookSelectors from '../../redux/PhonebookSelectors';
 import Message from '../Message/Message';
 
 import s from './ContactsForm.module.scss';
@@ -105,11 +106,9 @@ class ContactsForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    contacts: state.phonebook.contacts,
-  };
-};
+const mapStateToProps = state => ({
+  contacts: PhonebookSelectors.getContacts(state),
+});
 
 const mapDispatchToProps = dispatch => {
   return {
