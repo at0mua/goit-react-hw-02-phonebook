@@ -23,23 +23,32 @@ const ContactsListItem = ({ name, number, onRemoveContact }) => {
 };
 
 ContactsListItem.propTypes = {
-  item: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    number: PropTypes.string.isRequired,
-  }),
+  name: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
 
   onRemoveContact: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const item = state.phonebook.contacts.find((item) => item.id === ownProps.id);
-  return {
-    ...item,
-  };
-};
+// ContactsListItem.propTypes = {
+//   item: PropTypes.shape({
+//     name: PropTypes.string.isRequired,
+//     number: PropTypes.string.isRequired,
+//   }),
+
+//   onRemoveContact: PropTypes.func.isRequired,
+// };
+
+// const mapStateToProps = (state, ownProps) => {
+//   const contact = state.phonebook.contacts.find(
+//     (contact) => contact.id === ownProps.id
+//   );
+//   return {
+//     ...contact,
+//   };
+// };
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onRemoveContact: () => dispatch(PhonebookActions.deleteContact(ownProps.id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsListItem);
+export default connect("", mapDispatchToProps)(ContactsListItem);

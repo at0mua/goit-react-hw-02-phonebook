@@ -12,9 +12,9 @@ const ContactsList = ({ contacts }) => {
   return (
     <>
       <TransitionGroup component="ul" className={s.contactList}>
-        {contacts.map(({ id }) => (
+        {contacts.map(({ id, name, number }) => (
           <CSSTransition key={id} timeout={250} classNames={translateL}>
-            <ContactListItem key={id} id={id} />
+            <ContactListItem key={id} id={id} name={name} number={number} />
           </CSSTransition>
         ))}
       </TransitionGroup>
@@ -29,6 +29,8 @@ ContactsList.propTpes = {
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
     })
   ),
 };
