@@ -26,4 +26,6 @@ ContactsListItem.propTypes = {
   onRemoveContact: PropTypes.func.isRequired,
 };
 
+
 export default ContactsListItem;
+
