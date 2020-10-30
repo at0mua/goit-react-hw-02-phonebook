@@ -1,12 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import PhonebookActions from "../../redux/PnhonebookActions";
+import s from './ContactsListItem.module.scss';
 
-import s from "./ContactsListItem.module.scss";
-
-const ContactsListItem = ({ name, number, onRemoveContact }) => {
+const ContactsListItem = ({ name, number, id, onRemoveContact }) => {
   return (
     <li className={s.contactsList_item}>
       <p className={s.contactsList_item__name}>{name}</p>
@@ -29,26 +26,6 @@ ContactsListItem.propTypes = {
   onRemoveContact: PropTypes.func.isRequired,
 };
 
-// ContactsListItem.propTypes = {
-//   item: PropTypes.shape({
-//     name: PropTypes.string.isRequired,
-//     number: PropTypes.string.isRequired,
-//   }),
 
-//   onRemoveContact: PropTypes.func.isRequired,
-// };
+export default ContactsListItem;
 
-// const mapStateToProps = (state, ownProps) => {
-//   const contact = state.phonebook.contacts.find(
-//     (contact) => contact.id === ownProps.id
-//   );
-//   return {
-//     ...contact,
-//   };
-// };
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onRemoveContact: () => dispatch(PhonebookActions.deleteContact(ownProps.id)),
-});
-
-export default connect("", mapDispatchToProps)(ContactsListItem);

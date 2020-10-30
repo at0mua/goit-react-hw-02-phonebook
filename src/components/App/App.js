@@ -1,69 +1,39 @@
-import React, { Component } from "react";
-import { CSSTransition } from "react-transition-group";
-import { connect } from "react-redux";
+import React from 'react';
+import { CSSTransition } from 'react-transition-group';
 
-import AppBar from "../AppBar/AppBar";
-import ContactsForm from "../ContactsForm/ContactsForm";
-import ContactsList from "../ContactsList/ContactsList";
-import Filter from "../Filter/Filter";
-import PhonebookActions from "../../redux/PnhonebookActions";
+import AppBar from '../AppBar/AppBar';
+import ContactsForm from '../ContactsForm/ContactsForm';
+import ContactsList from '../ContactsList/ContactsList';
+import Filter from '../Filter/Filter';
 
-import scale from "../../animation/scale.module.scss";
+import s from './App.module.scss';
+import scale from '../../animation/scale.module.scss';
 
-class App extends Component {
-  componentDidMount() {
-    const persistedContacts = localStorage.getItem("contacts");
+function App({ contacts, loading }) {
+  const isShowFilter = contacts.length > 1;
 
-    if (persistedContacts) {
-      this.props.addFromLocal(JSON.parse(persistedContacts));
-    }
-  }
+  return (
+    <>
+      <AppBar title="Phonebook" />
 
-  componentDidUpdate(prevState) {
-    if (prevState.contacts !== this.props.contacts) {
-      localStorage.setItem("contacts", JSON.stringify(this.props.contacts));
-    }
-  }
+      <section className="container">
+        <ContactsForm />
 
-  render() {
-    const { contacts } = this.props;
+        <CSSTransition
+          in={isShowFilter}
+          classNames={scale}
+          timeout={250}
+          unmountOnExit
+        >
+          <Filter />
+        </CSSTransition>
 
-    const isShowFilter = contacts.length > 1;
+        {loading && <h3 className={s.loading}>Please wait. Loading...</h3>}
 
-    return (
-      <>
-        <AppBar title="Phonebook" />
-
-        <section className="container">
-          <ContactsForm />
-
-          <CSSTransition
-            in={isShowFilter}
-            classNames={scale}
-            timeout={250}
-            unmountOnExit
-          >
-            <Filter />
-          </CSSTransition>
-
-          <ContactsList />
-        </section>
-      </>
-    );
-  }
+        <ContactsList />
+      </section>
+    </>
+  );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    contacts: state.phonebook.contacts,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    addFromLocal: (contacts) =>
-      dispatch(PhonebookActions.fromLocalSorage(contacts)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;

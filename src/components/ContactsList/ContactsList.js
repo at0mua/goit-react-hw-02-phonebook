@@ -1,18 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { CSSTransition, TransitionGroup } from "react-transition-group";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { connect } from 'react-redux';
 
-import ContactListItem from "./ContactsListItem";
+import ContactListItem from './ContactsListItemContainer';
+import PhonebookSelectors from '../../redux/PhonebookSelectors';
 
-import s from "./ContactsList.module.scss";
-import translateL from "../../animation/translateLeft.module.scss";
+import s from './ContactsList.module.scss';
+import translateL from '../../animation/translateLeft.module.scss';
 
 const ContactsList = ({ contacts }) => {
+  const contactsId = contacts.map(contact => contact.id);
   return (
     <>
       <TransitionGroup component="ul" className={s.contactList}>
-        {contacts.map(({ id, name, number }) => (
+        {contactsId.map(id => (        
           <CSSTransition key={id} timeout={250} classNames={translateL}>
             <ContactListItem key={id} id={id} name={name} number={number} />
           </CSSTransition>
@@ -29,22 +31,11 @@ ContactsList.propTpes = {
   contacts: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
   ),
 };
 
-const mapStateToProps = (state) => {
-  const { contacts, filter } = state.phonebook;
-
-  const visibleContacts = contacts.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
-
-  return {
-    contacts: visibleContacts,
-  };
-};
+const mapStateToProps = state => ({
+  contacts: PhonebookSelectors.getVisibleContacts(state),
+});
 
 export default connect(mapStateToProps)(ContactsList);

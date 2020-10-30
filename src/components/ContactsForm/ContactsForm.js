@@ -1,28 +1,29 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { CSSTransition } from "react-transition-group";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { CSSTransition } from 'react-transition-group';
 
-import PhonebookActions from "../../redux/PnhonebookActions";
-import Message from "../Message/Message";
+import PhonebookOperation from '../../redux/PhonebookOperation';
+import PhonebookSelectors from '../../redux/PhonebookSelectors';
+import Message from '../Message/Message';
 
-import s from "./ContactsForm.module.scss";
-import translateR from "../../animation/translateRight.module.scss";
+import s from './ContactsForm.module.scss';
+import translateR from '../../animation/translateRight.module.scss';
 
 class ContactsForm extends Component {
   state = {
-    name: "",
-    number: "",
+    name: '',
+    number: '',
     message: false,
   };
 
-  handleChange = (e) => {
+  handleChange = e => {
     const { name, value } = e.target;
     this.setState({
       [name]: value,
     });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
 
     const { name, number } = this.state;
@@ -37,12 +38,12 @@ class ContactsForm extends Component {
       onSubmit(name, number);
     }
 
-    this.setState({ name: "", number: "" });
+    this.setState({ name: '', number: '' });
   };
 
   checkContactName = (contacts, name) => {
-    return contacts.some((contact) =>
-      contact.name.toLowerCase().includes(name.toLowerCase())
+    return contacts.some(contact =>
+      contact.name.toLowerCase().includes(name.toLowerCase()),
     );
   };
 
@@ -105,16 +106,14 @@ class ContactsForm extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    contacts: state.phonebook.contacts,
-  };
-};
+const mapStateToProps = state => ({
+  contacts: PhonebookSelectors.getContacts(state),
+});
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     onSubmit: (name, number) =>
-      dispatch(PhonebookActions.addContact(name, number)),
+      dispatch(PhonebookOperation.addContact(name, number)),
   };
 };
 

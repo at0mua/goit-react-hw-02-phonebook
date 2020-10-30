@@ -1,10 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import PhonebookActions from "../../redux/PnhonebookActions";
+import PhonebookActions from '../../redux/PnhonebookActions';
+import PhonebookSelectors from '../../redux/PhonebookSelectors';
 
-import s from "./Filter.module.scss";
+import s from './Filter.module.scss';
 
 const Filter = ({ value, onChangeFilter }) => {
   return (
@@ -15,7 +16,7 @@ const Filter = ({ value, onChangeFilter }) => {
           className={s.filter_input}
           type="text"
           value={value}
-          onChange={(e) => onChangeFilter(e.target.value)}
+          onChange={e => onChangeFilter(e.target.value)}
           placeholder="Enter name"
         />
       </label>
@@ -24,7 +25,7 @@ const Filter = ({ value, onChangeFilter }) => {
 };
 
 Filter.defaultProps = {
-  filter: "",
+  filter: '',
 };
 
 Filter.propTypes = {
@@ -32,9 +33,9 @@ Filter.propTypes = {
   onChangeFilter: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
-    value: state.phonebook.filter,
+    value: PhonebookSelectors.getFilter(state),
   };
 };
 
