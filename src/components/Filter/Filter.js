@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import PhonebookActions from '../../redux/PnhonebookActions';
-import PhonebookSelectors from '../../redux/PhonebookSelectors';
+import PhonebookActions from '../../redux/Phonebook/PnhonebookActions';
+import PhonebookSelectors from '../../redux/Phonebook/PhonebookSelectors';
 
 import s from './Filter.module.scss';
 

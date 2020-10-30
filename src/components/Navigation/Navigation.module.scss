@@ -1,0 +1,19 @@
+.navigation {
+  width: 250px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link {
+  color: black;
+  cursor: pointer;
+}
+
+.activeLink {
+  color: rgb(245, 97, 39);
+  cursor: pointer;
+}
