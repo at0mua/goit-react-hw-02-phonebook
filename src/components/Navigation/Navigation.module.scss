@@ -1,0 +1,47 @@
+.wrapper {
+  margin: 0 auto;
+  width: 900px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo {
+  font-size: 36px;
+  font-weight: 900;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+}
+
+.logo:visited {
+  color: black;
+}
+
+.navigation {
+  width: 400px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link {
+  color: black;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  border: 2px solid black;
+  border-radius: 5px;
+  outline: none;
+  text-decoration: none;
+}
+
+.activeLink {
+  cursor: pointer;
+  background-color: #e7ecf2;
+  color: black;
+
+  border: 2px solid #e7ecf2;
+}

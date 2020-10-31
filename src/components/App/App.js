@@ -1,39 +1,38 @@
-import React from 'react';
-import { CSSTransition } from 'react-transition-group';
+import React, { Component, Suspense } from 'react';
+import { BrowserRouter, Switch } from 'react-router-dom';
+import { connect } from 'react-redux';
 
+import PrivateRoute from '../PrivateRoute';
+import PublickRoute from '../PublickRoute';
+import { authOperations } from '../../redux/auth';
 import AppBar from '../AppBar/AppBar';
-import ContactsForm from '../ContactsForm/ContactsForm';
-import ContactsList from '../ContactsList/ContactsList';
-import Filter from '../Filter/Filter';
+import routes from '../../routes/routes';
 
-import s from './App.module.scss';
-import scale from '../../animation/scale.module.scss';
+class App extends Component {
+  componentDidMount() {
+    this.props.onGetCurrentUser();
+  }
 
-function App({ contacts, loading }) {
-  const isShowFilter = contacts.length > 1;
-
-  return (
-    <>
-      <AppBar title="Phonebook" />
-
-      <section className="container">
-        <ContactsForm />
-
-        <CSSTransition
-          in={isShowFilter}
-          classNames={scale}
-          timeout={250}
-          unmountOnExit
-        >
-          <Filter />
-        </CSSTransition>
-
-        {loading && <h3 className={s.loading}>Please wait. Loading...</h3>}
-
-        <ContactsList />
-      </section>
-    </>
-  );
+  render() {
+    return (
+      <BrowserRouter>
+        <AppBar title="Phonebook" />
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Switch>
+            {routes.map(route =>
+              route.private ? (
+                <PrivateRoute key={route.label} {...route} />
+              ) : (
+                <PublickRoute key={route.label} {...route} />
+              ),
+            )}
+          </Switch>
+        </Suspense>
+      </BrowserRouter>
+    );
+  }
 }
 
-export default App;
+export default connect(null, {
+  onGetCurrentUser: authOperations.getCurrentUser,
+})(App);

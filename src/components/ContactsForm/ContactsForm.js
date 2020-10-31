@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 
-import PhonebookOperation from '../../redux/PhonebookOperation';
-import PhonebookSelectors from '../../redux/PhonebookSelectors';
+import { PhonebookOperation, PhonebookSelectors } from '../../redux/Phonebook/';
 import Message from '../Message/Message';
 
 import s from './ContactsForm.module.scss';
