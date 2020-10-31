@@ -1,34 +1,34 @@
 import axios from 'axios';
 
-import PnhonebookActions from './PnhonebookActions';
+import { PhonebookActions } from './';
 
-axios.defaults.baseURL = 'http://localhost:2000';
+// axios.defaults.baseURL = 'http://localhost:2000';
 
 const addContact = (name, number) => dispatch => {
-  dispatch(PnhonebookActions.addContactRequest());
+  dispatch(PhonebookActions.addContactRequest());
 
   axios
     .post('/contacts', { name, number })
-    .then(({ data }) => dispatch(PnhonebookActions.addContactSuccess(data)))
-    .catch(error => dispatch(PnhonebookActions.addContactError(error)));
+    .then(({ data }) => dispatch(PhonebookActions.addContactSuccess(data)))
+    .catch(error => dispatch(PhonebookActions.addContactError(error)));
 };
 
 const getContacts = () => dispatch => {
-  dispatch(PnhonebookActions.getContactsRequest());
+  dispatch(PhonebookActions.getContactsRequest());
 
   axios
     .get('/contacts')
-    .then(({ data }) => dispatch(PnhonebookActions.getContactsSuccess(data)))
-    .catch(error => dispatch(PnhonebookActions.getContactsError(error)));
+    .then(({ data }) => dispatch(PhonebookActions.getContactsSuccess(data)))
+    .catch(error => dispatch(PhonebookActions.getContactsError(error)));
 };
 
 const deleteContact = id => dispatch => {
-  dispatch(PnhonebookActions.deleteContactRequest());
+  dispatch(PhonebookActions.deleteContactRequest());
 
   axios
     .delete(`/contacts/${id}`)
-    .then(() => dispatch(PnhonebookActions.deleteContactSuccess(id)))
-    .catch(error => dispatch(PnhonebookActions.deleteContactError(error)));
+    .then(() => dispatch(PhonebookActions.deleteContactSuccess(id)))
+    .catch(error => dispatch(PhonebookActions.deleteContactError(error)));
 };
 
 export default {

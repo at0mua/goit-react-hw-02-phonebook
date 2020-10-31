@@ -5,8 +5,8 @@ import { CSSTransition } from 'react-transition-group';
 import ContactsForm from '../../components/ContactsForm/ContactsForm';
 import ContactsList from '../../components/ContactsList/ContactsList';
 import Filter from '../../components/Filter/Filter';
-import PhonebookOperation from '../../redux/Phonebook/PhonebookOperation';
-import PhonebookSelectors from '../../redux/Phonebook/PhonebookSelectors';
+import { PhonebookOperation, PhonebookSelectors } from '../../redux/Phonebook/';
+// import { authSelectors } from '../../redux/auth';
 
 import s from './ContactsView.module.scss';
 import scale from '../../animation/scale.module.scss';
@@ -44,6 +44,7 @@ class ContactsView extends Component {
 const mapStateToProps = state => ({
   contacts: PhonebookSelectors.getContacts(state),
   loading: PhonebookSelectors.getLoading(state),
+  // isAuthenticated: authSelectors.isAuthenticated(state),
 });
 
 const mapDispatchToProps = {

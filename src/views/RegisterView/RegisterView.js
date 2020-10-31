@@ -1,11 +1,11 @@
-import React, { Compopnent } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import authOperation from '../../redux/auth/authOperation';
+import { authOperations } from '../../redux/auth';
 
 import s from './RegisterView.module.scss';
 
-class RegisterView extends Compopnent {
+class RegisterView extends Component {
   state = {
     name: '',
     email: '',
@@ -20,50 +20,65 @@ class RegisterView extends Compopnent {
     e.preventDefault();
 
     this.props.onRegister({ ...this.state });
+    this.setState({ name: '', email: '', password: '' });
   };
+
   render() {
     const { name, email, password } = this.state;
 
     return (
       <div className={s.register_form_container}>
-        <h1>Login page</h1>
+        <h1 className={s.register_title}>Register page</h1>
 
         <form onSubmit={this.handleSubmit} className={s.register_form}>
-          <lable className={s.register_form_lable}>
-            Email
+          <label className={s.register_form_label}>
+            Name
             <input
+              className={s.register_form_input}
               type="name"
               name="name"
               value={name}
               onChange={this.handleChange}
+              required
+              placeholder="Enter your name"
             />
-          </lable>
+          </label>
 
-          <lable className={s.register_form_lable}>
+          <label className={s.register_form_label}>
             Email
             <input
+              className={s.register_form_input}
               type="email"
               name="email"
               value={email}
               onChange={this.handleChange}
+              required
+              placeholder="Enter your email"
             />
-          </lable>
+          </label>
 
-          <lable className={s.register_form_lable}>
+          <label className={s.register_form_label}>
             Password
             <input
+              className={s.register_form_input}
               type="password"
               name="password"
               value={password}
               onChange={this.handleChange}
+              required
+              placeholder="Enter new password"
             />
-          </lable>
+          </label>
+
+          <button type="submit" className={s.register_form_btn}>
+            Register
+          </button>
         </form>
       </div>
     );
   }
 }
 
-export default connect(null, { onRegister: authOperation.register })(
+export default connect(null, { onRegister: authOperations.register })(
   RegisterView,
 );

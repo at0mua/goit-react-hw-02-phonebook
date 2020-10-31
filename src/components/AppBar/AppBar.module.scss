@@ -5,25 +5,6 @@
   background-color: gray;
 }
 
-.wrapper {
-  margin: 0 auto;
-  width: 900px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.logo {
-  font-size: 36px;
-  font-weight: 900;
-  cursor: pointer;
-  outline: none;
-  text-decoration: none;
-}
-
-.logo:visited {
-  color: black;
-}
-
 .appear {
   transform: translateY(-100%);
 }

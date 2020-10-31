@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  margin-right: 10px;
+}
+
+.name {
+  font-weight: 400;
+  font-size: 14px;
+  margin-right: 12px;
+}
+
+.btn {
+  display: block;
+  border: none;
+  background-color: #e7ecf2;
+  font-family: 'Trispace', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}

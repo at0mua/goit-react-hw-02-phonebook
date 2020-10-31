@@ -4,7 +4,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { connect } from 'react-redux';
 
 import ContactListItem from './ContactsListItemContainer';
-import PhonebookSelectors from '../../redux/Phonebook/PhonebookSelectors';
+import { PhonebookSelectors } from '../../redux/Phonebook/';
 
 import s from './ContactsList.module.scss';
 import translateL from '../../animation/translateLeft.module.scss';

@@ -1,25 +1,57 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import routes from '../../routes';
+import { CSSTransition } from 'react-transition-group';
+
+import AuthMenu from '../AuthMenu/AuthMenu';
+import UserMenu from '../UserMenu/UserMenu';
+import whithAuth from '../hoc/whithAuth';
+import { Home, Contacts } from '../../routes/index';
 
 import s from './Navigation.module.scss';
+import logo from '../../animation/logo.module.scss';
+import nav from '../../animation/nav.module.scss';
 
-const Navigation = () => (
-  <ul className={s.navigation}>
-    {routes.map(route => (
-      <li>
+const Navigation = ({ title, stage, isAuthenticated }) => {
+  return (
+    <nav className={s.wrapper}>
+      <CSSTransition
+        in={stage === 'entered'}
+        timeout={500}
+        classNames={logo}
+        unmountOnExit
+      >
         <NavLink
-          exact={route.exact}
-          key={route.label}
-          to={route.path}
-          className={s.link}
-          activeClassName={s.activeLink}
+          className={s.logo}
+          activeClassName={s.logo_active}
+          to={Home.path}
+          key={Home.label}
+          exact={Home.exact}
         >
-          {route.label}
+          {title}
         </NavLink>
-      </li>
-    ))}
-  </ul>
-);
+      </CSSTransition>
 
-export default Navigation;
+      <CSSTransition
+        in={stage === 'entered'}
+        timeout={500}
+        classNames={nav}
+        unmountOnExit
+      >
+        <div className={s.navigation}>
+          <NavLink
+            className={s.link}
+            activeClassName={s.activeLink}
+            to={Contacts.path}
+            key={Contacts.label}
+            exact={Contacts.exact}
+          >
+            {Contacts.label}
+          </NavLink>
+          {!isAuthenticated ? <AuthMenu /> : <UserMenu />}
+        </div>
+      </CSSTransition>
+    </nav>
+  );
+};
+
+export default whithAuth(Navigation);

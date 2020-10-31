@@ -1,34 +1,34 @@
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
-import phonebookActions from './PnhonebookActions';
+import { PhonebookActions } from './';
 
 const contacts = createReducer([], {
-  [phonebookActions.addContactSuccess]: (state, { payload }) => [
+  [PhonebookActions.addContactSuccess]: (state, { payload }) => [
     ...state,
     payload,
   ],
-  [phonebookActions.getContactsSuccess]: (state, { payload }) => [
+  [PhonebookActions.getContactsSuccess]: (state, { payload }) => [
     ...state,
     ...payload,
   ],
-  [phonebookActions.deleteContactSuccess]: (state, { payload }) =>
+  [PhonebookActions.deleteContactSuccess]: (state, { payload }) =>
     state.filter(({ id }) => id !== payload),
 });
 
 const filter = createReducer('', {
-  [phonebookActions.changeFilter]: (_, { payload }) => payload,
+  [PhonebookActions.changeFilter]: (_, { payload }) => payload,
 });
 
 const loading = createReducer(false, {
-  [phonebookActions.addContactRequest]: () => true,
-  [phonebookActions.addContactSuccess]: () => false,
-  [phonebookActions.addContactError]: () => false,
-  [phonebookActions.getContactsRequest]: () => true,
-  [phonebookActions.getContactsSuccess]: () => false,
-  [phonebookActions.getContactsError]: () => false,
-  [phonebookActions.deleteContactRequest]: () => true,
-  [phonebookActions.deleteContactSuccess]: () => false,
-  [phonebookActions.deleteContactError]: () => false,
+  [PhonebookActions.addContactRequest]: () => true,
+  [PhonebookActions.addContactSuccess]: () => false,
+  [PhonebookActions.addContactError]: () => false,
+  [PhonebookActions.getContactsRequest]: () => true,
+  [PhonebookActions.getContactsSuccess]: () => false,
+  [PhonebookActions.getContactsError]: () => false,
+  [PhonebookActions.deleteContactRequest]: () => true,
+  [PhonebookActions.deleteContactSuccess]: () => false,
+  [PhonebookActions.deleteContactError]: () => false,
 });
 
 export default combineReducers({

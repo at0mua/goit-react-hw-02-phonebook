@@ -1,26 +1,8 @@
-.wrapper {
-  margin: 0 auto;
-  width: 900px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.logo {
-  font-size: 36px;
-  font-weight: 900;
-  cursor: pointer;
-  outline: none;
-  text-decoration: none;
-}
-
-.logo:visited {
-  color: black;
-}
-
-.navigation {
-  width: 400px;
+.auth_list {
+  width: 200px;
   margin: 0;
-  padding: 0;
+  padding: 10px;
+  list-style: none;
   display: flex;
   justify-content: space-between;
   align-items: center;
